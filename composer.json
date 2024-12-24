@@ -25,7 +25,7 @@
     "php": ">=8.0",
     "laravel/nova": "^4.12",
     "nova-kit/nova-packages-tool": "^1.0",
-    "spatie/laravel-translatable": "^4.0 || ^5.0 || ^6.0"
+    "spatie/laravel-translatable": "^4.0 || ^5.0 || ^6.0 || dev-main"
   },
   "autoload": {
     "psr-4": {
