@@ -32,7 +32,16 @@ class TranslatableFieldMixin
                     // In case a model has the HasTranslations trait, but some fields are wrapped
                     // we must be prepared to get an Exception here
                     try {
-                        $value = $resource->getTranslations($attribute);
+                        if (Str::contains($attribute, '->')) {
+                            $exploded = explode('->', $attribute);
+                            $mainField = $exploded[0];
+                            array_shift($exploded);
+                            $subField = implode('.', $exploded);
+                            $translated = $resource->getTranslations($mainField);
+                            $value = collect($translated)->mapWithKeys(fn($item, $lang) => [$lang => data_get($item, $subField)])->toArray();
+                        } else {
+                            $value = $resource->getTranslations($attribute);
+                        }
                     } catch (Exception $e) {
                         $value = [];
                     }
